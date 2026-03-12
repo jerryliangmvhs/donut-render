@@ -27,7 +27,7 @@ scene.add(cube);
 camera.position.z = 5;
 
 
-loader.load( 'public/models/Donut.glb', function ( gltf ) {
+loader.load( import.meta.env.BASE_URL + 'models/Donut.glb', function ( gltf ) {
 
   scene.add( gltf.scene );
 
