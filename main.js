@@ -12,11 +12,19 @@ camera.rotation.y = 0;
 scene.background = new THREE.Color('rgb(0, 0, 0)');
 
 const renderer = new THREE.WebGLRenderer({antialias: true});
+renderer.shadowMap.enabled = true;
+
 const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
 // White directional light at half intensity shining from the top.
-const directionalLight = new THREE.DirectionalLight( 0xffffff, 3 );
-scene.add( directionalLight );
+const directionalLight = new THREE.DirectionalLight( 'rgb(255, 246, 192)', 3 );
+const directionalLight2 = new THREE.DirectionalLight( 'rgb(255, 246, 192)', 1 );
+directionalLight.castShadow = true;
+directionalLight.position.set(-1.4,1.7,0.6);
+directionalLight2.position.set(0,-2,0);
+directionalLight.shadow.bias = -0.0001;
+scene.add(directionalLight);
+scene.add(directionalLight2);
 
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -33,11 +41,15 @@ scene.add(cube);
 
 
 loader.load('models/Donut.glb', function ( gltf ) {
-
+  const model = gltf.scene;
+  model.traverse((child) => {
+        if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+        }
+    });
   scene.add( gltf.scene );
-
 }, undefined, function ( error ) {
-
   console.error( error );
 
 } );
