@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import studio from '@theatre/studio'
+import { getProject, types } from '@theatre/core'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -16,15 +18,16 @@ renderer.shadowMap.enabled = true;
 
 const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
-// White directional light at half intensity shining from the top.
-const directionalLight = new THREE.DirectionalLight( 'rgb(255, 246, 192)', 3 );
-const directionalLight2 = new THREE.DirectionalLight( 'rgb(255, 246, 192)', 1 );
+
+const directionalLight = new THREE.DirectionalLight( 'rgb(255, 233, 192)', 3 );
+const ambientLight = new THREE.AmbientLight('rgb(255, 209, 209)',0.2);
+
 directionalLight.castShadow = true;
 directionalLight.position.set(-1.4,1.7,0.6);
-directionalLight2.position.set(0,-2,0);
+
 directionalLight.shadow.bias = -0.0001;
 scene.add(directionalLight);
-scene.add(directionalLight2);
+scene.add(ambientLight);
 
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
