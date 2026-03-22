@@ -7,8 +7,8 @@ import { getProject, types } from '@theatre/core'
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.x = 0;
-camera.position.y = 1;
-camera.position.z = 2;
+camera.position.y = 11;
+camera.position.z = 23;
 camera.rotation.x = -1;
 camera.rotation.y = 0;
 scene.background = new THREE.Color('rgb(7, 16, 53)');
@@ -23,7 +23,7 @@ const directionalLight = new THREE.DirectionalLight( 'rgb(255, 233, 192)', 3 );
 const ambientLight = new THREE.AmbientLight('rgb(255, 209, 209)',0.2);
 
 directionalLight.castShadow = true;
-directionalLight.position.set(-1.4,1.7,0.6);
+directionalLight.position.set(-7,18,16);
 
 directionalLight.shadow.bias = -0.0001;
 scene.add(directionalLight);
@@ -43,7 +43,7 @@ scene.add(cube);
 
 
 
-loader.load('models/Donut.glb', function ( gltf ) {
+loader.load('models/HouseTestFile.glb', function ( gltf ) {
   const model = gltf.scene;
   model.traverse((child) => {
         if (child.isMesh) {
