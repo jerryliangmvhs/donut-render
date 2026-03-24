@@ -2,8 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+const canvas = document.getElementById("exhibit");
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 45, sizes.width / sizes.height, 0.1, 1000 );
 camera.position.x = 0;
 camera.position.y = 11;
 camera.position.z = 23;
@@ -11,7 +17,7 @@ camera.rotation.x = -1;
 camera.rotation.y = 0;
 scene.background = new THREE.Color('rgb(7, 16, 53)');
 
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = true;
 
 const controls = new OrbitControls( camera, renderer.domElement );
@@ -73,4 +79,16 @@ function animate( time ) {
         );
         
 }
+window.addEventListener("resize", () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update Camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
 renderer.setAnimationLoop( animate );
