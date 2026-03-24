@@ -60,7 +60,7 @@ scene.add(cube);
 
 
 
-loader.load('models/HouseTestFile.glb', function ( gltf ) {
+loader.load('models/My House.glb', function ( gltf ) {
   const model = gltf.scene;
   model.traverse((child) => {
         if (child.isMesh) {
