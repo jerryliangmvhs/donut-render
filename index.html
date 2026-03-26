@@ -30,17 +30,32 @@
         margin: 0;
     }
     .debug{
-        position: absolute;
-        top: 0;
-        left: 0;
         color: white;
         margin: 20px;
         font-weight: 900;
-        width: 100%;
-        height: 100%;
         pointer-events: none;
         font-family: debug-font;
-        
+    }
+    #app{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        position: absolute;
+        align-items: flex-start;
+    }
+    .icons{
+        display: flex;
+        align-items: center;
+        margin: 20px;
+    }
+    .icons > img{
+        width: 50px;
+        margin: 10px;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+    }
+    .icons > img:hover{
+        transform: translateY(-10px);
     }
 </style>
 <body>
@@ -53,8 +68,13 @@
             <p id = "cameraYawInfo"></p>
             <p id = "cameraRollInfo"></p>
         </div>
-        <canvas id = "exhibit" class = "exhibit"></canvas>
+        <div class = "icons">
+            <img class = "website" alt = "home logo" src = "home.png" onclick = "location.assign('https://freestyleacademy.rocks/~JerryL/')">
+            <img class = "youtube" alt = "youtube logo" src = "youtube.png" onclick = "location.assign('https://www.youtube.com/@small_j1337')">
+            <img class = "instagram" alt = "instagram logo" src = "instagram.png" onclick = "location.assign('https://www.instagram.com/small_j1337/')">
+        </div>
     </div>
+    <canvas id = "exhibit" class = "exhibit"></canvas>
     <script type="module" src="/main.js"></script>
 </body>
 </html>
