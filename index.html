@@ -21,10 +21,16 @@
         font-family: debug-font;
         src: url("Minecraft.otf");
     }
-    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(7, 16, 53);}
+    @keyframes fade-in{
+        from{
+            opacity: 0;
+        }
+    }
+    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(235, 159, 96);}
     .exhibit{
        width: 100% !important;
        height: 100% !important;
+       animation: fade-in 1s ease;
     }
     p{
         margin: 0;
@@ -42,6 +48,7 @@
         width: 100%;
         position: absolute;
         align-items: flex-start;
+        z-index: 999;
     }
     .icons{
         display: flex;

@@ -15,17 +15,23 @@
     <meta property="twitter:image" content="http://zenith.jerryliangportfolio.com/favicon.png"/>
     <link rel="icon" type="image/x-icon" href="/assets/favicon-DstX19g1.png">
     <title>Jerry's House</title>
-  <script type="module" crossorigin src="/assets/index-DVJ3ZJBL.js"></script>
+  <script type="module" crossorigin src="/assets/index-B8zZt9Be.js"></script>
 </head>
 <style>
     @font-face{
         font-family: debug-font;
         src: url("/assets/Minecraft-Lz-C8nWS.otf");
     }
-    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(7, 16, 53);}
+    @keyframes fade-in{
+        from{
+            opacity: 0;
+        }
+    }
+    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(235, 159, 96);}
     .exhibit{
        width: 100% !important;
        height: 100% !important;
+       animation: fade-in 1s ease;
     }
     p{
         margin: 0;
@@ -43,6 +49,7 @@
         width: 100%;
         position: absolute;
         align-items: flex-start;
+        z-index: 999;
     }
     .icons{
         display: flex;

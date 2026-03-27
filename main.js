@@ -12,20 +12,16 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 45, sizes.width / sizes.height, 0.1, 1000 );
 if(sizes.width <768){
   camera.position.x = 0;
-  camera.position.y = 33;
-  camera.position.z = 68;
-  camera.rotation.x = -1;
-  camera.rotation.y = 0;
+  camera.position.y = 42;
+  camera.position.z = 88;
 }
 else{
-  camera.position.x = 0;
-  camera.position.y = 13;
-  camera.position.z = 27;
-  camera.rotation.x = -1;
-  camera.rotation.y = 0;
+  camera.position.x = -13;
+  camera.position.y = 14;
+  camera.position.z = 36;
 }
 
-scene.background = new THREE.Color('rgb(7, 16, 53)');
+scene.background = new THREE.Color('rgb(235, 159, 96)');
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = true;
@@ -35,7 +31,7 @@ const loader = new GLTFLoader();
 
 const directionalLight = new THREE.DirectionalLight( 'rgb(255, 255, 255)', 3 );
 const innerLightTest = new THREE.DirectionalLight('rgb(255,255,255)',0.25);
-const ambientLight = new THREE.AmbientLight('rgb(255, 209, 209)',0.25);
+const ambientLight = new THREE.AmbientLight('rgb(255, 220, 193)',0.5);
 
 directionalLight.castShadow = true;
 directionalLight.position.set(-7,18,16);
@@ -117,9 +113,7 @@ function animate( time ) {
   cameraZInfo.innerHTML = getCameraZ();
   cameraPitchInfo.innerHTML = getCameraPitch();
   cameraYawInfo.innerHTML = getCameraYaw();
-  cameraRollInfo.innerHTML = getCameraRoll();
-  
-        
+  cameraRollInfo.innerHTML = getCameraRoll();     
 }
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
