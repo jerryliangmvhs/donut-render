@@ -55,6 +55,9 @@ const cameraPitchInfo = document.getElementById("cameraPitchInfo");
 const cameraYawInfo = document.getElementById("cameraYawInfo");
 const cameraRollInfo = document.getElementById("cameraRollInfo");
 
+controls.maxPolarAngle = Math.PI/2;
+controls.minPolarAngle = 0;
+
 document.body.appendChild( renderer.domElement );
 
 /*
