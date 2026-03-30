@@ -101,22 +101,8 @@ function getCameraYaw(){
 function getCameraRoll(){
   return "Roll: " + camera.rotation.z.toFixed(2);
 }
-
 function animate( time ) {
   renderer.render( scene, camera );
-  console.log("Camera Position X:", camera.position.x);
-  console.log("Camera Position Y:", camera.position.y);
-  console.log("Camera Position Z:", camera.position.z);
-  console.log(
-      "Pitch (X):", camera.rotation.x,
-      "Yaw (Y):", camera.rotation.y
-  );
-  cameraXInfo.innerHTML = getCameraX();
-  cameraYInfo.innerHTML = getCameraY();
-  cameraZInfo.innerHTML = getCameraZ();
-  cameraPitchInfo.innerHTML = getCameraPitch();
-  cameraYawInfo.innerHTML = getCameraYaw();
-  cameraRollInfo.innerHTML = getCameraRoll();     
 }
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
@@ -129,5 +115,10 @@ window.addEventListener("resize", () => {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+window.addEventListener("click",()=>{
+   console.log(getCameraX());
+   console.log(getCameraY());
+   console.log(getCameraZ());
 });
 renderer.setAnimationLoop( animate );

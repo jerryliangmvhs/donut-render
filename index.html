@@ -37,15 +37,19 @@
     p{
         margin: 0;
     }
-    .debug{
+    .topLeftText{
         color: white;
-        margin: 20px;
+        margin-left: 20px;
+        margin-top: 10px;
         font-weight: 900;
         pointer-events: none;
         font-family: debug-font;
         position: absolute;
         top: 0;
         left: 0;
+    }
+    #site-title{
+        font-size: clamp(1em,2.5vw,3em);
     }
     #app{
         display: flex;
@@ -58,13 +62,13 @@
     .icons{
         display: flex;
         align-items: center;
-        margin: 20px;
+        margin-right: 20px;
         position: absolute;
         top: 0;
         right: 0;
     }
     .icons > img{
-        width: 50px;
+        width: clamp(1em,4vw,3em);
         margin: 10px;
         cursor: pointer;
         transition: transform 0.25s ease;
@@ -75,13 +79,8 @@
 </style>
 <body>
     <div id = "app">
-        <div class = "debug">
-            <p id = "cameraXInfo"></p>
-            <p id = "cameraYInfo"></p>
-            <p id = "cameraZInfo"></p>
-            <p id = "cameraPitchInfo"></p>
-            <p id = "cameraYawInfo"></p>
-            <p id = "cameraRollInfo"></p>
+        <div class = "topLeftText">
+            <p id = "site-title">Jerry's House</p>
         </div>
         <div class = "icons">
             <img class = "website" alt = "home logo" src = "home.png" onclick = "location.assign('https://freestyleacademy.rocks/~JerryL/')">
