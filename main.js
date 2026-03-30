@@ -27,6 +27,7 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = true;
 
 const controls = new OrbitControls( camera, renderer.domElement );
+controls.enablePan = false;
 const loader = new GLTFLoader();
 
 const directionalLight = new THREE.DirectionalLight( 'rgb(255, 255, 255)', 3 );
