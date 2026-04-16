@@ -9,7 +9,7 @@ const sizes = {
 };
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 45, sizes.width / sizes.height, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 70, sizes.width / sizes.height, 0.1, 1000 );
 if(sizes.width <768){
   camera.position.x = 0;
   camera.position.y = 20;
@@ -28,6 +28,7 @@ renderer.shadowMap.enabled = true;
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = true;
+controls.update();
 const loader = new GLTFLoader();
 
 const directionalLight = new THREE.DirectionalLight( 'rgb(255, 255, 255)', 3 );
@@ -132,4 +133,21 @@ window.addEventListener("click",()=>{
    console.log(getCameraY());
    console.log(getCameraZ());
 });
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    camera.position.x = -4.15;
+    camera.position.y = 4;
+    camera.position.z = 0.79;
+    controls.target.set(-3,4,1);
+    controls.update();
+  }
+});
+/*
+  IMPORTANT INFORMATION: ROOM COORDS
+  Jerry's Room
+  - Camera Position: (-4.15,4,0.79)
+  - Target Position: (-3,4.3,1)
+
+
+*/
 renderer.setAnimationLoop( animate );
