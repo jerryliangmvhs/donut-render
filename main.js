@@ -24,7 +24,7 @@ else{
 scene.background = new THREE.Color('rgb(248, 181, 163)');
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = false;
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = true;
@@ -85,8 +85,8 @@ loader.load('models/My House.glb', function ( gltf ) {
   const model = gltf.scene;
   model.traverse((child) => {
         if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
+            //child.castShadow = true;
+            //child.receiveShadow = true;
         }
     });
   scene.add( gltf.scene );
