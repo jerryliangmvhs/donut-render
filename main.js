@@ -35,7 +35,7 @@ const directionalLight = new THREE.DirectionalLight( 'rgb(255, 255, 255)', 3 );
 const innerLightTest = new THREE.DirectionalLight('rgb(255,255,255)',0.5);
 const ambientLight = new THREE.AmbientLight('rgb(255, 220, 193)',0.5);
 
-directionalLight.castShadow = true;
+directionalLight.castShadow = false;
 directionalLight.position.set(-7,18,16);
 directionalLight.shadow.camera.left = -200;
 directionalLight.shadow.camera.right = 200;
