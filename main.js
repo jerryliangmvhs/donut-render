@@ -9,16 +9,12 @@ const sizes = {
 };
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 70, sizes.width / sizes.height, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 50, sizes.width / sizes.height, 0.1, 1000 );
 if(sizes.width <768){
-  camera.position.x = 0;
-  camera.position.y = 20;
-  camera.position.z = 51.5;
+  camera.position.set(0.22,23.66,48.73);
 }
 else{
-  camera.position.x = 0.3;
-  camera.position.y = 11.4;
-  camera.position.z = 19.2;
+  camera.position.set(0.13,8.39,17.21);
 }
 
 scene.background = new THREE.Color('rgb(248, 181, 163)');
@@ -94,7 +90,6 @@ loader.load('models/My House.glb', function ( gltf ) {
   console.error( error );
 
 } );
-
 function getCameraX(){
   return "X: " + camera.position.x.toFixed(2);
 }
@@ -132,19 +127,26 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 window.addEventListener("click",()=>{
-   console.log(getCameraX());
-   console.log(getCameraY());
-   console.log(getCameraZ());
-   console.log(getCameraTarget());
+   //console.log(getCameraX());
+   //console.log(getCameraY());
+   //console.log(getCameraZ());
+   //console.log(getCameraTarget());
+
+   console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");");
+   console.log("controls.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");");
+   console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
 });
 document.addEventListener('keydown', (event) => {
   if(event.key === '0'){
     //spawn
     controls.target.set(0,0,0);
-    camera.position.x = 0.3;
-    camera.position.y = 11.4;
-    camera.position.z = 19.2;
+    camera.position.set(0.15,8.89,17.32);
+    if(sizes.width < 768){
+      camera.position.set(0.22,23.66,48.73);
+    }
     controls.update();
+    camera.fov = 50;
+    camera.updateProjectionMatrix();
   }
   if (event.key === '1') {
     //jerry's room
@@ -153,6 +155,8 @@ document.addEventListener('keydown', (event) => {
     camera.position.z = 0;
     controls.target.set(-3,3.75,1);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if (event.key === '2') {
     //bathroom 2
@@ -161,60 +165,80 @@ document.addEventListener('keydown', (event) => {
     camera.position.z = 0.7;
     controls.target.set(-1.13,4,1.2);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '3'){
     //second floor main area
     camera.position.set(0,3.75,-2.1);
     controls.target.set(0,3.7,-1.25);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '4'){
     //bathroom 3
     camera.position.set(3.8,4.08,0.71);
     controls.target.set(3.82,4,1.4);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '5'){
     //jason's room
     camera.position.set(-2.35,4,-2.5);
     controls.target.set(-3.16,4,-2.5);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '6'){
     //parent's room
     camera.position.set(3.25,4,-2.35);
     controls.target.set(3.25,4,-1.5);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '7'){
     //living room + kitchen
     camera.position.set(-0.5,1.6,-3);
     controls.target.set(-0.85,1.6,-2.29);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '8'){
     //piano study room
     camera.position.set(2.56,1.55,-2.47);
     controls.target.set(3.43,1.55,-2.46);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '9'){
     //garage
     camera.position.set(3.52,1.23,2.34);
     controls.target.set(3.56,1.23,1.19);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === '-'){
     //lower bathroom
     camera.position.set(-3.26,2,0.36);
     controls.target.set(-3.28,2,0.36);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   if(event.key === "="){
     //dad's office
     camera.position.set(-2.63,1.8,1.93);
     controls.target.set(-3.32,1.8,2.4);
     controls.update();
+    camera.fov = 100;
+    camera.updateProjectionMatrix();
   }
   
 });
