@@ -27,7 +27,7 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = false;
 
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.enablePan = true;
+controls.enablePan = false;
 controls.update();
 const loader = new GLTFLoader();
 
@@ -113,6 +113,9 @@ function getCameraYaw(){
 function getCameraRoll(){
   return "Roll: " + camera.rotation.z.toFixed(2);
 }
+function getCameraTarget(){
+  return "TargetX: " + controls.target.x.toFixed(2) + " TargetY: " + controls.target.y.toFixed(2) + " TargetZ: " + controls.target.z.toFixed(2);
+}
 function animate( time ) {
   renderer.render( scene, camera );
 }
@@ -132,15 +135,88 @@ window.addEventListener("click",()=>{
    console.log(getCameraX());
    console.log(getCameraY());
    console.log(getCameraZ());
+   console.log(getCameraTarget());
 });
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    camera.position.x = -4.15;
-    camera.position.y = 4;
-    camera.position.z = 0.79;
-    controls.target.set(-3,4,1);
+  if(event.key === '0'){
+    //spawn
+    controls.target.set(0,0,0);
+    camera.position.x = 0.3;
+    camera.position.y = 11.4;
+    camera.position.z = 19.2;
     controls.update();
   }
+  if (event.key === '1') {
+    //jerry's room
+    camera.position.x = -3;
+    camera.position.y = 4;
+    camera.position.z = 0;
+    controls.target.set(-3,3.75,1);
+    controls.update();
+  }
+  if (event.key === '2') {
+    //bathroom 2
+    camera.position.x = -1.13;
+    camera.position.y = 4;
+    camera.position.z = 0.7;
+    controls.target.set(-1.13,4,1.2);
+    controls.update();
+  }
+  if(event.key === '3'){
+    //second floor main area
+    camera.position.set(0,3.75,-2.1);
+    controls.target.set(0,3.7,-1.25);
+    controls.update();
+  }
+  if(event.key === '4'){
+    //bathroom 3
+    camera.position.set(3.8,4.08,0.71);
+    controls.target.set(3.82,4,1.4);
+    controls.update();
+  }
+  if(event.key === '5'){
+    //jason's room
+    camera.position.set(-2.35,4,-2.5);
+    controls.target.set(-3.16,4,-2.5);
+    controls.update();
+  }
+  if(event.key === '6'){
+    //parent's room
+    camera.position.set(3.25,4,-2.35);
+    controls.target.set(3.25,4,-1.5);
+    controls.update();
+  }
+  if(event.key === '7'){
+    //living room + kitchen
+    camera.position.set(-0.5,1.6,-3);
+    controls.target.set(-0.85,1.6,-2.29);
+    controls.update();
+  }
+  if(event.key === '8'){
+    //piano study room
+    camera.position.set(2.56,1.55,-2.47);
+    controls.target.set(3.43,1.55,-2.46);
+    controls.update();
+  }
+  if(event.key === '9'){
+    //garage
+    camera.position.set(3.52,1.23,2.34);
+    controls.target.set(3.56,1.23,1.19);
+    controls.update();
+  }
+  if(event.key === '-'){
+    //lower bathroom
+    camera.position.set(-3.26,2,0.36);
+    controls.target.set(-3.28,2,0.36);
+    controls.update();
+  }
+  if(event.key === "="){
+    //dad's office
+    camera.position.set(-2.63,1.8,1.93);
+    controls.target.set(-3.32,1.8,2.4);
+    controls.update();
+  }
+  
 });
 /*
   IMPORTANT INFORMATION: ROOM COORDS
@@ -149,5 +225,10 @@ document.addEventListener('keydown', (event) => {
   - Target Position: (-3,4.3,1)
 
 
+
+X: -2.63
+main.js:136 Y: 1.87
+main.js:137 Z: 1.93
+main.js:138 TargetX: -3.32 TargetY: 1.74 TargetZ: 2.40
 */
 renderer.setAnimationLoop( animate );
