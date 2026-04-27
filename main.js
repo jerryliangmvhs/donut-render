@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
+let location = 0;
 
 const canvas = document.getElementById("exhibit");
 const sizes = {
@@ -23,8 +26,8 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = false;
 
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.enablePan = true;
-controls.enableZoom = true;
+controls.enablePan = false;
+controls.enableZoom = false;
 controls.update();
 const loader = new GLTFLoader();
 
@@ -77,9 +80,13 @@ scene.add(cube);
 */
 
 let mixer;
+let model;
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('draco/');
+loader.setDRACOLoader(dracoLoader);
 
-loader.load('models/My House.glb', function ( gltf ) {
-  const model = gltf.scene;
+loader.load('models/My House Compressed Test.glb', function ( gltf ) {
+  model = gltf.scene;
   model.colorSpace = THREE.SRGBColorSpace;
   model.traverse((child) => {
         if (child.isMesh) {
@@ -128,15 +135,251 @@ window.addEventListener("resize", () => {
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
-window.addEventListener("click",()=>{
-   //console.log(getCameraX());
-   //console.log(getCameraY());
-   //console.log(getCameraZ());
-   //console.log(getCameraTarget());
 
-   console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");");
-   console.log("controls.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");");
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener("click",(event)=>{
+   console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
    console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
+
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    if (!model) return;
+    const intersects = raycaster.intersectObject(model, true);
+    if (intersects.length > 0) {
+        let obj = intersects[0].object;
+        while (obj) {
+            console.log("Object Name: " + obj.name);
+
+            if (obj.name === "Door_Main_Entrance"){
+              if(location === 0){
+                location = 7;
+                camera.fov = 100;
+                camera.position.set(-0.50,1.60,-3.00);
+                controls.target.set(-0.85,1.60,-2.29);
+                controls.update();
+                camera.updateProjectionMatrix();
+              }
+              else if(location === 7){
+                location = 0;
+                camera.fov = 50;
+                camera.position.set(0.06,9.15,18.73);
+                controls.target.set(0.00,0.00,0.00);
+                controls.update();
+                camera.updateProjectionMatrix();
+              }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Outside_to_Garage") {
+                if(location === 0){
+                  location = 9;
+                  camera.position.set(2.74,1.51,0.43);
+                  controls.target.set(3.56,1.23,1.19);
+                  camera.fov = 100;
+                  camera.updateProjectionMatrix();
+                  controls.update();
+                }
+                else if(location === 9){
+                  location = 0;
+                  camera.position.set(0.06,9.15,18.73);
+                  controls.target.set(0.00,0.00,0.00);
+                  camera.fov = 50;
+                  camera.updateProjectionMatrix();
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Dad_Office") {
+                if(location === 7){
+                  location = 11;
+                  camera.position.set(-3.87,1.97,1.80);
+                  controls.target.set(-3.32,1.80,2.40);
+                  controls.update();
+                }
+                else if(location === 11){
+                  location = 7;
+                  camera.position.set(-0.50,1.60,-3.00);
+                  controls.target.set(-0.85,1.60,-2.29);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Bathroom_1") {
+                if(location === 7){
+                    location = 10;
+                    camera.position.set(-3.30,2.01,0.36);
+                    controls.target.set(-3.28,2.00,0.36);
+                    controls.update();
+                  }
+                else if(location === 10){
+                  location = 7;
+                  camera.position.set(-0.50,1.60,-3.00);
+                  controls.target.set(-0.85,1.60,-2.29);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Garage_to_Living_Room"){
+                if(location === 9){
+                  location = 7;
+                  camera.position.set(-0.50,1.60,-3.00);
+                  controls.target.set(-0.85,1.60,-2.29);
+                  controls.update();
+                }
+                else if(location === 7){
+                  location = 9;
+                  camera.position.set(2.74,1.51,0.43);
+                  controls.target.set(3.56,1.23,1.19);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Study_Room_Door"){
+              if(location === 7){
+                  location = 8;
+                  camera.position.set(2.56,1.55,-2.47);
+                  controls.target.set(3.43,1.55,-2.46);
+                  controls.update();
+                }
+                else if(location === 8){
+                  location = 7;
+                  camera.position.set(-0.50,1.60,-3.00);
+                  controls.target.set(-0.85,1.60,-2.29);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Jason's_Room") {
+              if(location === 3){
+                  location = 5;
+                  camera.position.set(-2.35,4.00,-2.52);
+                  controls.target.set(-3.16,4.00,-2.50);
+                  controls.update();
+                }
+                else if(location === 5){
+                  location = 3;
+                  camera.position.set(-0.00,3.75,-2.10);
+                  controls.target.set(0.00,3.70,-1.25);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Jerry's_Room") {
+                if(location === 1){
+                  location = 3;
+                  camera.position.set(-0.00,3.75,-2.10);
+                  controls.target.set(0.00,3.70,-1.25);
+                  controls.update();
+                }
+                else if(location === 3){
+                  location = 1;
+                  camera.position.set(-3.00,4.00,0.00);
+                  controls.target.set(-3.00,3.75,1.00);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Bathroom_2") {
+              if(location === 3){
+                  location = 2;
+                  camera.position.set(-1.13,4.00,0.70);
+                  controls.target.set(-1.13,4.00,1.20);
+                  controls.update();
+                }
+                else if(location === 2){
+                  location = 3;
+                  camera.position.set(-0.00,3.75,-2.10);
+                  controls.target.set(0.00,3.70,-1.25);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if (obj.name === "Door_Parents_Room") {
+                console.log("Mesh Clicked!");
+                if(location === 3){
+                  location = 6;
+                  camera.position.set(2.52,4.00,-1.07);
+                  controls.target.set(3.25,4.00,-1.50);
+                  controls.update();
+                }
+                else if(location === 6){
+                  location = 3;
+                  camera.position.set(-0.00,3.75,-2.10);
+                  controls.target.set(0.00,3.70,-1.25);
+                  controls.update();
+                 
+                }
+                break;
+            }
+            else if (obj.name === "Door_Bathroom_3") {
+                console.log("Mesh Clicked!");
+                if(location === 4){
+                  location = 6;
+                  camera.position.set(2.52,4.00,-1.07);
+                  controls.target.set(3.25,4.00,-1.50);
+                  controls.update();
+                }
+                else if(location === 6){
+                  location = 4;
+                  camera.position.set(3.80,4.08,0.71);
+                  controls.target.set(3.82,4.00,1.40);
+                  controls.update();
+                }
+                break;
+            }
+            else if (obj.name === "Door_Parent's_Closet") {
+               //do this later
+            }
+             else if (obj.name === "Stairs") {
+              if(location === 7){
+                  location = 3;
+                  camera.position.set(-0.00,3.75,-2.10);
+                  controls.target.set(0.00,3.70,-1.25);
+                  controls.update();
+                }
+                else if(location === 3){
+                  location = 7;
+                  camera.position.set(-0.50,1.60,-3.00);
+                  controls.target.set(-0.85,1.60,-2.29);
+                  controls.update();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            else if(obj.name === "Cube009_6"){
+               if(location === 0){
+                  location = 9;
+                  camera.position.set(2.74,1.51,0.43);
+                  controls.target.set(3.56,1.23,1.19);
+                  controls.update();
+                  camera.fov = 100;
+                  camera.updateProjectionMatrix();
+                }
+                else if(location === 9){
+                  location = 0;
+                   camera.position.set(0.06,9.15,18.73);
+                  controls.target.set(0.00,0.00,0.00);
+                  controls.update();
+                  camera.fov = 50;
+                  camera.updateProjectionMatrix();
+                }
+                console.log("Mesh Clicked!");
+                break;
+            }
+            obj = obj.parent;
+        }
+      }
 });
 document.addEventListener('keydown', (event) => {
   if(event.key === '0'){
@@ -149,9 +392,11 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 50;
     camera.updateProjectionMatrix();
+    location = 0;
   }
   if (event.key === '1') {
     //jerry's room
+    location = 1;
     camera.position.x = -3;
     camera.position.y = 4;
     camera.position.z = 0;
@@ -169,6 +414,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 2;
   }
   if(event.key === '3'){
     //second floor main area
@@ -177,6 +423,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 3;
   }
   if(event.key === '4'){
     //bathroom 3
@@ -185,6 +432,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 4;
   }
   if(event.key === '5'){
     //jason's room
@@ -193,22 +441,25 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 5;
   }
   if(event.key === '6'){
     //parent's room
-    camera.position.set(3.25,4,-2.35);
-    controls.target.set(3.25,4,-1.5);
+    camera.position.set(2.52,4.00,-1.07);
+    controls.target.set(3.25,4.00,-1.50);
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 6;
   }
   if(event.key === '7'){
     //living room + kitchen
-    camera.position.set(-0.5,1.6,-3);
-    controls.target.set(-0.85,1.6,-2.29);
+    camera.position.set(-0.50,1.60,-3.00);
+    controls.target.set(-0.85,1.60,-2.29);
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 7;
   }
   if(event.key === '8'){
     //piano study room
@@ -217,6 +468,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 8;
   }
   if(event.key === '9'){
     //garage
@@ -225,6 +477,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 9;
   }
   if(event.key === '-'){
     //lower bathroom
@@ -233,6 +486,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 10;
   }
   if(event.key === "="){
     //dad's office
@@ -241,6 +495,7 @@ document.addEventListener('keydown', (event) => {
     controls.update();
     camera.fov = 100;
     camera.updateProjectionMatrix();
+    location = 11;
   }
   
 });
