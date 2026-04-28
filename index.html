@@ -76,8 +76,53 @@
     .icons > img:hover{
         transform: translateY(-10px);
     }
+    #instructions{
+        position: absolute;
+        display: block;
+        font-family: debug-font;
+        top: 85vh;
+        left: 50vw;
+        transform: translateX(-50%);
+        text-align: center;
+        color: white;
+        background-color: rgba(0,0,0,0.5);
+        padding: 1em;
+        border-radius: 0.25em;
+        animation: fade-in 3s forwards;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 3s ease;
+    }
+    #instructions.hidden{
+        opacity: 0;
+    }
+    #introScreen{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999;
+        transition: opacity 3s ease;
+    }
+    #introScreen.hidden{
+        pointer-events: none;
+        opacity: 0;
+    }
+    .loadingText{
+        color: white;
+        font-family: debug-font;
+        font-size: 2em;
+    }
 </style>
 <body>
+    <div id = "introScreen">
+        <p class = "loadingText">Loading...</p>
+    </div>
     <div id = "app">
         <div class = "topLeftText">
             <p id = "site-title">Jerry's House</p>
@@ -87,6 +132,7 @@
             <img class = "youtube" alt = "youtube logo" src = "youtube.png" onclick = "location.assign('https://www.youtube.com/@small_j1337')">
             <img class = "instagram" alt = "instagram logo" src = "instagram.png" onclick = "location.assign('https://www.instagram.com/small_j1337/')">
         </div>
+        <p id = "instructions">Click on a door (most doors will work) or the stairs to travel between rooms.<br>Tap or click anywhere to dismiss.</p>
     </div>
     <canvas id = "exhibit" class = "exhibit"></canvas>
     <script type="module" src="/main.js"></script>

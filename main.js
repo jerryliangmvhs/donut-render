@@ -84,17 +84,25 @@ let model;
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('draco/');
 loader.setDRACOLoader(dracoLoader);
+const loadingScreen = document.getElementById("introScreen");
 
-loader.load('models/My House.glb', function ( gltf ) {
+
+loader.load('models/My House.glb', function(gltf){
   model = gltf.scene;
   model.colorSpace = THREE.SRGBColorSpace;
+  /*
   model.traverse((child) => {
         if (child.isMesh) {
             //child.castShadow = true;
             //child.receiveShadow = true;
         }
     });
-  scene.add( gltf.scene );
+    */
+  scene.add(model);
+  requestAnimationFrame(() => {
+    console.log("model loaded");
+    loadingScreen.classList.add("hidden");
+  });
 }, undefined, function ( error ) {
   console.error( error );
 
@@ -138,10 +146,13 @@ window.addEventListener("resize", () => {
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+const instructions = document.getElementById("instructions");
+
 
 window.addEventListener("click",(event)=>{
-   console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
-   console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
+   instructions.classList.add("hidden");
+   //console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
+   //console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
 
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -381,6 +392,8 @@ window.addEventListener("click",(event)=>{
         }
       }
 });
+
+
 document.addEventListener('keydown', (event) => {
   if(event.key === '0'){
     //spawn
