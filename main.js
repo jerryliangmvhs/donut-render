@@ -85,7 +85,7 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('draco/');
 loader.setDRACOLoader(dracoLoader);
 
-loader.load('models/My House Compressed Test.glb', function ( gltf ) {
+loader.load('models/My House.glb', function ( gltf ) {
   model = gltf.scene;
   model.colorSpace = THREE.SRGBColorSpace;
   model.traverse((child) => {
