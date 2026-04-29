@@ -23,16 +23,27 @@
         font-family: debug-font;
         src: url("Minecraft.otf");
     }
+    @font-face{
+        font-family: title-font;
+        src: url("minecraft-five.ttf");
+    }
+    @font-face{
+        font-family: intro-font;
+        src: url("dale-adventure.ttf");
+    }
+    @font-face{
+        font-family: body-font;
+        src: url("Inter.ttf");
+    }
     @keyframes fade-in{
         from{
             opacity: 0;
         }
     }
-    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(248, 181, 163);}
+    body { margin: 0; position: relative; overflow-x: hidden; background: rgb(0, 0, 0);}
     .exhibit{
        width: 100% !important;
        height: 100% !important;
-       animation: fade-in 1s ease;
     }
     p{
         margin: 0;
@@ -43,13 +54,13 @@
         margin-top: 10px;
         font-weight: 900;
         pointer-events: none;
-        font-family: debug-font;
+        font-family: title-font;
         position: absolute;
         top: 0;
         left: 0;
     }
     #site-title{
-        font-size: clamp(1em,2.5vw,3em);
+        font-size: clamp(0.5em,1.5vw,3em);
     }
     #app{
         display: flex;
@@ -79,7 +90,8 @@
     #instructions{
         position: absolute;
         display: block;
-        font-family: debug-font;
+        font-family: body-font;
+        font-weight: 700;
         top: 85vh;
         left: 50vw;
         transform: translateX(-50%);
@@ -88,10 +100,9 @@
         background-color: rgba(0,0,0,0.5);
         padding: 1em;
         border-radius: 0.25em;
-        animation: fade-in 3s forwards;
         pointer-events: none;
         opacity: 1;
-        transition: opacity 3s ease;
+        transition: opacity 1.5s ease;
     }
     #instructions.hidden{
         opacity: 0;
@@ -115,13 +126,20 @@
     }
     .loadingText{
         color: white;
-        font-family: debug-font;
-        font-size: 2em;
+        font-family: intro-font;
+        font-size: 3em;
+        text-align: center;
+    }
+    @media(max-width: 768px){
+        #instructions{
+            top: 75vh;
+            width: 70vw;
+        }
     }
 </style>
 <body>
     <div id = "introScreen">
-        <p class = "loadingText">Loading...</p>
+        <p id = "loadingText" class = "loadingText">Loading Your Experience...</p>
     </div>
     <div id = "app">
         <div class = "topLeftText">

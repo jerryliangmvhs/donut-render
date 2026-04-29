@@ -85,6 +85,7 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('draco/');
 loader.setDRACOLoader(dracoLoader);
 const loadingScreen = document.getElementById("introScreen");
+const loadingText = document.getElementById("loadingText");
 
 
 loader.load('models/My House.glb', function(gltf){
@@ -101,7 +102,11 @@ loader.load('models/My House.glb', function(gltf){
   scene.add(model);
   requestAnimationFrame(() => {
     console.log("model loaded");
-    loadingScreen.classList.add("hidden");
+    loadingText.innerHTML = "Welcome!";
+    setTimeout(()=>{
+      loadingScreen.classList.add("hidden");
+    },500);
+
   });
 }, undefined, function ( error ) {
   console.error( error );
