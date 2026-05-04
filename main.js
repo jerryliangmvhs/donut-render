@@ -38,7 +38,7 @@ const loader = new GLTFLoader();
 
 const directionalLight = new THREE.DirectionalLight( 'rgb(255, 255, 255)', 1.2);
 const innerLightTest = new THREE.DirectionalLight('rgb(255,255,255)',0.5);
-const ambientLight = new THREE.AmbientLight('rgb(255, 232, 201)',5);
+const ambientLight = new THREE.AmbientLight('rgb(255, 255, 255)',4);
 
 directionalLight.castShadow = false;
 directionalLight.position.set(-7,18,16);
@@ -95,14 +95,6 @@ const loadingText = document.getElementById("loadingText");
 loader.load('models/My House.glb', function(gltf){
   model = gltf.scene;
   model.colorSpace = THREE.SRGBColorSpace;
-  /*
-  model.traverse((child) => {
-        if (child.isMesh) {
-            //child.castShadow = true;
-            //child.receiveShadow = true;
-        }
-    });
-    */
   scene.add(model);
   mixer = new THREE.AnimationMixer(model);
   requestAnimationFrame(() => {
@@ -170,9 +162,9 @@ const mouse = new THREE.Vector2();
 const instructions = document.getElementById("instructions");
 
 
-window.addEventListener("click",(event)=>{
+window.addEventListener("mousedown",(event)=>{
    instructions.classList.add("hidden");
-   //console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
+   console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
    //console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
 
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
