@@ -29,8 +29,8 @@ const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.shadowMap.enabled = false;
 
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.enablePan = false;
-controls.enableZoom = false;
+controls.enablePan = true;
+controls.enableZoom = true;
 camera.zoom = 1;
 camera.updateProjectionMatrix();
 controls.update();
