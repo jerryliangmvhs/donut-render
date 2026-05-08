@@ -30,7 +30,7 @@ renderer.shadowMap.enabled = false;
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = true;
-controls.enableZoom = true;
+controls.enableZoom = false;
 camera.zoom = 1;
 camera.updateProjectionMatrix();
 controls.update();
