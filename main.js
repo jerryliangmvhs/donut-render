@@ -77,12 +77,7 @@ controls.minPolarAngle = 0;
 
 document.body.appendChild( renderer.domElement );
 
-/*
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial({color: 0x00ff00 });
-const cube = new THREE.Mesh( geometry, material );
-scene.add(cube);
-*/
+
 
 let model;
 const dracoLoader = new DRACOLoader();
@@ -161,9 +156,27 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const instructions = document.getElementById("instructions");
 
+let pressStart;
+const MAX_CLICK_TIME = 200;
 
-window.addEventListener("mousedown",(event)=>{
-   instructions.classList.add("hidden");
+window.addEventListener("pointerdown", () => {
+    pressStart = Date.now();
+    instructions.classList.add("hidden");
+});
+
+window.addEventListener("pointerup", () => {
+    const duration = Date.now() - pressStart;
+
+    if (duration < MAX_CLICK_TIME) {
+        console.log("Quick tap/click!");
+        checkClick();
+
+    }
+});
+
+
+function checkClick(){
+   
    console.log("camera.position.set("+camera.position.x.toFixed(2)+","+camera.position.y.toFixed(2)+","+camera.position.z.toFixed(2)+");\ncontrols.target.set("+controls.target.x.toFixed(2)+","+controls.target.y.toFixed(2)+","+controls.target.z.toFixed(2)+");\ncontrols.update();");
    //console.log("Polar Angle: " + controls.getPolarAngle().toFixed(2));
 
@@ -440,7 +453,7 @@ window.addEventListener("mousedown",(event)=>{
             obj = obj.parent;
         }
       }
-});
+}
 
 
 document.addEventListener('keydown', (event) => {
